@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NutritionApp</string>
+    <string name="app_title">Foods</string>
+    <string name="app_exercise_title">Exercises</string>
+    <string name="app_add_new_item_title">Add new item</string>
+    <string name="app_weight_tracking_title">Weight tracking</string>
+    <string name="app_profile_title">Profile</string>
 </resources>
