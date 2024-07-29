@@ -1,43 +1,41 @@
 package com.example.nutritionapp
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
-import data.Food
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.nutritionapp.viewmodel.FoodViewModel
 
 @Composable
 fun StartScreen(
-    foods: SnapshotStateList<Food>,
     addingVisible: Boolean,
-    stopAdding: () -> Unit,
+    onVisibilityChanged: (Boolean) -> Unit,
 ) {
+    val viewModel: FoodViewModel = viewModel()
+    val foodUiState by viewModel.foodUiState.collectAsState()
+
+    val foods = foodUiState.foods
     Box {
-        Column {
-            for (item in foods) {
-                FoodItem(item.name, item.description)
+        LazyColumn {
+            items(foods) {
+                FoodItem(it.name, it.description)
             }
         }
     }
-    var newFoodName by remember { mutableStateOf("") }
-    var newFoodDescription by remember { mutableStateOf("") }
 
     if (addingVisible) {
         CreateFood(
-            foodName = newFoodName,
-            foodDescription = newFoodDescription,
-            onFoodChangeName = { newFoodName = it },
-            onFoodChangeDescription = { newFoodDescription = it },
-            onCancel = { stopAdding() },
+            foodName = foodUiState.newFoodName,
+            foodDescription = foodUiState.newFoodDescription,
+            onFoodChangeName = { name -> viewModel.setNewFoodName(name) },
+            onFoodChangeDescription = { description -> viewModel.setNewTaskDescription(description) },
+            onCancel = { onVisibilityChanged(false) },
             onSave = {
-                foods.add(Food(newFoodName, newFoodDescription))
-                stopAdding()
-                newFoodName = ""
-                newFoodDescription = ""
+                viewModel.addFood()
+                onVisibilityChanged(false)
             },
         )
     }

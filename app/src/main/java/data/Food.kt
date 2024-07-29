@@ -26,17 +26,19 @@ data class Food(val name: String, val description: String = "") {
         }
         val getAll: () -> List<Food> = {
             val list = mutableListOf<Food>()
-            for (item in sampleFoods) {
-                list.add(
-                    Food(
-                        item,
-                        if (Random.nextInt(0, 2) == 0) {
-                            "lorem ipsum dolor sit"
-                        } else {
-                            "consectetur adipiscing elit"
-                        },
-                    ),
-                )
+            repeat(10) {
+                for (item in sampleFoods) {
+                    list.add(
+                        Food(
+                            item,
+                            if (Random.nextInt(0, 2) == 0) {
+                                "lorem ipsum dolor sit"
+                            } else {
+                                "consectetur adipiscing elit"
+                            },
+                        ),
+                    )
+                }
             }
             list
         }

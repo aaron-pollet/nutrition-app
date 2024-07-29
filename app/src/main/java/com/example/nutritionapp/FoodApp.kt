@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
@@ -26,11 +27,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.nutritionapp.ui.theme.NutritionAppTheme
+import com.example.nutritionapp.viewmodel.AddViewModel
+import com.example.nutritionapp.viewmodel.ExerciseViewModel
+import com.example.nutritionapp.viewmodel.ProfileViewModel
+import com.example.nutritionapp.viewmodel.WeightViewModel
 import data.Food
 
 enum class Destinations {
@@ -45,7 +51,7 @@ enum class Destinations {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FoodApp() {
-    var addingVisible by remember { mutableStateOf(false) }
+    var addingVisible by rememberSaveable { mutableStateOf(false) }
     val navController = rememberNavController()
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     Scaffold(
@@ -69,7 +75,7 @@ fun FoodApp() {
                     Destinations.Add.name -> R.string.app_add_new_item_title
                     Destinations.Weight.name -> R.string.app_weight_tracking_title
                     Destinations.Profile.name -> R.string.app_profile_title
-                    else -> R.string.app_title
+                    else -> R.string.app_home_title
                 },
             )
         },
@@ -104,7 +110,7 @@ fun FoodApp() {
     ) { innerPadding ->
         // added state, but didn't use remember, this will trigger on each recompose
         // more on lists and viewmodels will follow later!
-        val foods = remember { Food.getAll().toMutableStateList() }
+        var foods by remember { mutableStateOf(Food.getAll().toMutableStateList()) }
 
         NavHost(
             navController = navController,
@@ -112,18 +118,22 @@ fun FoodApp() {
             Modifier.padding(innerPadding),
         ) {
             composable(Destinations.Start.name) {
-                StartScreen(foods, addingVisible, { addingVisible = false })
+                StartScreen(addingVisible) { addingVisible = false }
             }
             composable(Destinations.Exercise.name) {
+                val viewModel: ExerciseViewModel = viewModel()
                 Text("Exercise screen")
             }
             composable(Destinations.Add.name) {
+                val viewModel: AddViewModel = viewModel()
                 Text("Add screen")
             }
             composable(Destinations.Weight.name) {
+                val viewModel: WeightViewModel = viewModel()
                 Text("Weight tracking screen")
             }
             composable(Destinations.Profile.name) {
+                val viewModel: ProfileViewModel = viewModel()
                 Text("Profile screen")
             }
         }
