@@ -1,7 +1,11 @@
 package com.example.nutritionapp
 
 import androidx.annotation.StringRes
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -12,8 +16,9 @@ import androidx.compose.ui.res.stringResource
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun MyTopAppBar(
-    navigationIcon: @Composable () -> Unit,
-    @StringRes title: Int,
+    canNavigateBack: Boolean,
+    navigateUp: () -> Unit,
+    @StringRes currentScreenTitle: Int,
 ) {
     TopAppBar(
         colors =
@@ -22,8 +27,16 @@ fun MyTopAppBar(
                 titleContentColor = MaterialTheme.colorScheme.primary,
             ),
         title = {
-            Text(stringResource(title))
+            Text(stringResource(currentScreenTitle))
         },
-        navigationIcon = navigationIcon,
+        navigationIcon = {
+            if(canNavigateBack){
+                IconButton(onClick = navigateUp) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = "navigate back"
+                    )
+                }
+            } },
     )
 }
