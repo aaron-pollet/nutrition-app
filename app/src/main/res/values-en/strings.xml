@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nutrition App</string>
+    <string name="app_home_title">Foods</string>
+    <string name="app_exercise_title">Exercises</string>
+    <string name="app_add_new_item_title">Add a new item</string>
+    <string name="app_weight_tracking_title">Weight tracking</string>
+    <string name="app_profile_title">Profile</string>
+    <string name="create_food_add">Add a new food entry</string>
+</resources>

@@ -17,10 +17,13 @@ class FoodViewModel : ViewModel() {
 
     fun addFood() {
         _foodUiState.update {
-            it.copy(
-                it.foods + Food(it.newFoodName, it.newFoodDescription),
+                currentState ->
+            currentState.copy(
+                currentState.foods + Food(currentState.newFoodName, currentState.newFoodDescription),
                 newFoodName = "",
                 newFoodDescription = "",
+                doScrollCommand = currentState.doScrollCommand.plus(1),
+                scrollToIndex = currentState.foods.size,
             )
         }
     }

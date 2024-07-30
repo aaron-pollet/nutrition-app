@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nutrition App</string>
+    <string name="app_home_title">Eten</string>
+    <string name="app_exercise_title">Oefeningen</string>
+    <string name="app_add_new_item_title">Voeg toe</string>
+    <string name="app_weight_tracking_title">Gewicht opvolging</string>
+    <string name="app_profile_title">Profiel</string>
+    <string name="create_food_add">Voeg een nieuwe maaltijd toe</string>
+</resources>
