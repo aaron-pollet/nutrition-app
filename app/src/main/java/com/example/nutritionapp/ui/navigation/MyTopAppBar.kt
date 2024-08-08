@@ -1,4 +1,4 @@
-package com.example.nutritionapp
+package com.example.nutritionapp.ui.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
@@ -30,13 +30,14 @@ fun MyTopAppBar(
             Text(stringResource(currentScreenTitle))
         },
         navigationIcon = {
-            if(canNavigateBack){
+            if (canNavigateBack) {
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "navigate back"
+                        contentDescription = "navigate back",
                     )
                 }
-            } },
+            }
+        },
     )
 }

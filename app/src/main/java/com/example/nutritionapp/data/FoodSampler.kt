@@ -1,8 +1,8 @@
-package data
+package com.example.nutritionapp.data
 
 import kotlin.random.Random
 
-data class Food(val name: String, val description: String = "") {
+data class FoodSampler(val name: String, val description: String = "") {
     companion object FoodSampler {
         val sampleFoods =
             mutableListOf(
@@ -14,8 +14,8 @@ data class Food(val name: String, val description: String = "") {
                 "Butter Chicken",
                 "Chocolate Cake",
             )
-        val getOne: () -> Food = {
-            Food(
+        val getOne: () -> com.example.nutritionapp.data.FoodSampler = {
+            FoodSampler(
                 sampleFoods[Random.nextInt(0, sampleFoods.size)],
                 if (Random.nextInt(0, 2) == 0) {
                     "lorem ipsum dolor sit"
@@ -24,12 +24,12 @@ data class Food(val name: String, val description: String = "") {
                 },
             )
         }
-        val getAll: () -> List<Food> = {
-            val list = mutableListOf<Food>()
+        val getAll: () -> List<com.example.nutritionapp.data.FoodSampler> = {
+            val list = mutableListOf<com.example.nutritionapp.data.FoodSampler>()
             repeat(10) {
                 for (item in sampleFoods) {
                     list.add(
-                        Food(
+                        FoodSampler(
                             item,
                             if (Random.nextInt(0, 2) == 0) {
                                 "lorem ipsum dolor sit"

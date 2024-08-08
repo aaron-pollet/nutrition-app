@@ -1,8 +1,9 @@
-package com.example.nutritionapp
+package com.example.nutritionapp.ui
 
 import androidx.annotation.StringRes
+import com.example.nutritionapp.R
 
-enum class FoodOverviewScreen(
+enum class NutritionAppOverviewScreen(
     @StringRes val title: Int,
 ) {
     Start(R.string.app_home_title),

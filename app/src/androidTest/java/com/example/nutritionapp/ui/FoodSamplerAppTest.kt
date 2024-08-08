@@ -13,13 +13,12 @@ import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.nutritionapp.FoodApp
-import com.example.nutritionapp.FoodOverviewScreen
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class FoodAppTest {
+class FoodSamplerAppTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -46,7 +45,7 @@ class FoodAppTest {
     @Test
     fun startScreen_showsHomeScreen() {
         composeTestRule
-            .onNodeWithText(getResourceString(FoodOverviewScreen.Start.title))
+            .onNodeWithText(getResourceString(NutritionAppOverviewScreen.Start.title))
             .assertIsDisplayed()
     }
 
@@ -58,7 +57,7 @@ class FoodAppTest {
 //        composeTestRule
 //            .onNodeWithText(getResourceString(FoodOverviewScreen.Profile.title))
 //            .assertIsDisplayed()
-        assertEquals(FoodOverviewScreen.Profile.name, navController.currentBackStackEntry?.destination?.route)
+        assertEquals(NutritionAppOverviewScreen.Profile.name, navController.currentBackStackEntry?.destination?.route)
     }
 
     private fun getResourceString(

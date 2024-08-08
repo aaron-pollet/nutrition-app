@@ -1,5 +1,8 @@
-package com.example.nutritionapp
+package com.example.nutritionapp.ui.navigation
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AddCircle
@@ -11,6 +14,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun MyBottomAppBar(
@@ -23,7 +28,11 @@ fun MyBottomAppBar(
     BottomAppBar(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
         contentColor = MaterialTheme.colorScheme.primary,
-        actions = {
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+        ) {
             IconButton(onClick = goHome) {
                 Icon(Icons.Filled.Home, contentDescription = "navigate to home screen")
             }
@@ -42,6 +51,12 @@ fun MyBottomAppBar(
                     contentDescription = "navigate to profile screen",
                 )
             }
-        },
-    )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun BottomAppBarPreview() {
+    MyBottomAppBar(goHome = {}, goToExercise = {}, goToAdd = {}, goToWeight = {}, goToProfile = {})
 }

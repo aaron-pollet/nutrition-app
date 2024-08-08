@@ -1,12 +1,12 @@
 package com.example.nutritionapp.ui
 
-import com.example.nutritionapp.viewmodel.FoodViewModel
+import com.example.nutritionapp.ui.viewmodel.food.FoodViewModel
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 
 private const val SOME_FOOD_NAME = "Apple"
 
-class FoodOverviewModelTest {
+class FoodSamplerOverviewModelTest {
     private val viewModel = FoodViewModel()
 
     @Test

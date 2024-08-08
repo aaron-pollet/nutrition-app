@@ -27,7 +27,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.nutritionapp.ui.NutritionAppOverviewScreen
+import com.example.nutritionapp.ui.navigation.MyBottomAppBar
+import com.example.nutritionapp.ui.navigation.MyTopAppBar
 import com.example.nutritionapp.ui.theme.NutritionAppTheme
+import com.example.nutritionapp.ui.viewmodel.food.FoodOverview
 
 enum class Destinations {
     Start,
@@ -48,18 +52,18 @@ fun FoodApp(navController: NavHostController = rememberNavController()) {
     val navigateUp: () -> Unit = { navController.navigateUp() }
     val goHome: () -> Unit = {
         navController.popBackStack(
-            FoodOverviewScreen.Start.name,
+            NutritionAppOverviewScreen.Start.name,
             inclusive = false,
         )
     }
-    val goToProfile = { navController.navigate(FoodOverviewScreen.Profile.name) }
-    val goToWeight = { navController.navigate(FoodOverviewScreen.Weight.name) }
-    val goToExercise = { navController.navigate(FoodOverviewScreen.Exercise.name) }
-    val goToAdd = { navController.navigate(FoodOverviewScreen.Add.name) }
+    val goToProfile = { navController.navigate(NutritionAppOverviewScreen.Profile.name) }
+    val goToWeight = { navController.navigate(NutritionAppOverviewScreen.Weight.name) }
+    val goToExercise = { navController.navigate(NutritionAppOverviewScreen.Exercise.name) }
+    val goToAdd = { navController.navigate(NutritionAppOverviewScreen.Add.name) }
 
     val currentScreenTitle =
-        FoodOverviewScreen.valueOf(
-            currentBackStackEntry?.destination?.route ?: FoodOverviewScreen.Start.name,
+        NutritionAppOverviewScreen.valueOf(
+            currentBackStackEntry?.destination?.route ?: NutritionAppOverviewScreen.Start.name,
         ).title
 
     Scaffold(

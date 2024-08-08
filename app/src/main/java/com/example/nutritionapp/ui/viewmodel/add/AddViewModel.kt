@@ -1,4 +1,4 @@
-package com.example.nutritionapp.viewmodel
+package com.example.nutritionapp.ui.viewmodel.add
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

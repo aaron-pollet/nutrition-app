@@ -1,4 +1,4 @@
-package com.example.nutritionapp
+package com.example.nutritionapp.ui.viewmodel.food
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -42,8 +44,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.nutritionapp.viewmodel.FoodViewModel
-import drawable.CreateFood
+import com.example.nutritionapp.R
 
 @Composable
 fun FoodOverview(
@@ -52,9 +53,14 @@ fun FoodOverview(
     modifier: Modifier = Modifier,
     foodViewModel: FoodViewModel = viewModel(),
 ) {
-    val foodUiState by foodViewModel.foodUiState.collectAsState()
+    val foodUiState by foodViewModel.uiState.collectAsState()
 
-    Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
+    Column(
+        modifier =
+            modifier
+                .fillMaxSize()
+                .padding(16.dp),
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -106,51 +112,72 @@ fun FoodOverview(
         Spacer(modifier = Modifier.height(16.dp))
 
         Column(modifier = modifier.fillMaxWidth()) {
-            MealCard("Breakfast")
-            Spacer(modifier = Modifier.height(8.dp))
-            MealCard("Lunch")
-            Spacer(modifier = Modifier.height(8.dp))
-            MealCard("Dinner")
-            Spacer(modifier = Modifier.height(8.dp))
-            MealCard("Snack")
-            Spacer(modifier = Modifier.height(8.dp))
-/*            MealCard("List"){
-                Box(){
-                    val listState = rememberLazyListState()
-                    LazyColumn {
-                        items(foodUiState.foods) {
-                            FoodItem(it.name, it.description)           }
-                    }
-                    // bij toevoegen van een nieuwe item gaat vanzelf gescrollt worden naar het nieuwe item
-                    LaunchedEffect(foodUiState.doScrollCommand) {
-                        listState.animateScrollToItem(foodUiState.scrollToIndex)
+//            MealCard("Breakfast")
+//            Spacer(modifier = Modifier.height(8.dp))
+//            MealCard("Lunch")
+//            Spacer(modifier = Modifier.height(8.dp))
+//            MealCard("Dinner")
+//            Spacer(modifier = Modifier.height(8.dp))
+//            MealCard("Snack")
+//            Spacer(modifier = Modifier.height(8.dp))
+            Box {
+                val lazyListState = rememberLazyListState()
+                LazyColumn(state = lazyListState) {
+                    val foodApiState = foodViewModel.foodApiState
+                    when (foodApiState) {
+                        is FoodApiState.Loading -> item { Text("Loading...") }
+                        is FoodApiState.Error -> item { Text("Couldn't load...") }
+                        is FoodApiState.Success ->
+                            item {
+                                FoodItem(
+                                    foodApiState.data.desc,
+                                    foodApiState.data.calories,
+                                    foodApiState.data.calories,
+                                    foodApiState.data.carbs,
+                                    foodApiState.data.fats,
+                                    foodApiState.data.protein,
+                                )
+                            }
                     }
                 }
-            }*/
+            }
+//                val coroutineScope = rememberCoroutineScope()
+//                // bij toevoegen van een nieuwe item gaat vanzelf gescrollt worden naar het nieuwe item
+//                LaunchedEffect(foodUiState.scrollToActionIdx != 0) {
+//                    coroutineScope.launch {
+//                        listState.scrollToItem(foodUiState.scrollToActionIdx)
+//                    }
+//                }
         }
-    }
-
-    if (addingVisible) {
-        CreateFood(
-            foodName = foodUiState.newFoodName,
-            foodDescription = foodUiState.newFoodDescription,
-            onFoodChangeName = { name -> foodViewModel.setNewFoodName(name) },
-            onFoodChangeDescription = { description -> foodViewModel.setNewTaskDescription(description) },
-            onSave = {
-                foodViewModel.addFood()
-                onVisibilityChanged(false)
-            },
-            onDismissRequest = {
-                // TODO clear viewmodel text
-                onVisibilityChanged(false)
-            },
-        )
     }
 }
 
+//    if (addingVisible) {
+//        CreateFood(
+//            foodDescription = foodUiState.newFoodDescription,
+//            foodGrams = foodUiState.newFoodDescription,
+//            onFoodChangeName = { name -> foodViewModel.setNewFoodName(name) },
+//            onFoodChangeDescription = { description -> foodViewModel.setNewTaskDescription(description) },
+//            onSave = {
+//                foodViewModel.addFood()
+//                onVisibilityChanged(false)
+//            },
+//            onDismissRequest = {
+//                // TODO clear viewmodel text
+//                onVisibilityChanged(false)
+//            },
+//        )
+//    }
+// }
+
 @Composable
 fun MealCard(name: String) {
-    ElevatedCard(modifier = Modifier.fillMaxWidth().height(60.dp)) {
+    ElevatedCard(
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(60.dp),
+    ) {
         val expanded by rememberSaveable { mutableStateOf(false) }
 //        val color by animateColorAsState(
 //            targetValue =

@@ -1,4 +1,4 @@
-package com.example.nutritionapp
+package com.example.nutritionapp.ui.viewmodel.food
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,8 +22,12 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun FoodItem(
-    name: String,
-    description: String,
+    desc: String,
+    calories: String,
+    grams: String,
+    carbs: String,
+    fats: String,
+    protein: String,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -35,8 +39,12 @@ fun FoodItem(
                 .fillMaxWidth(),
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
-            Text(name, fontSize = 24.sp)
-            Text(description, fontSize = 14.sp, fontFamily = FontFamily.Monospace)
+            Text(desc, fontSize = 24.sp)
+            Text(calories, fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
+            Text(grams, fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
+            Text(carbs, fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
+            Text(fats, fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
+            Text(protein, fontSize = 16.sp, fontFamily = FontFamily.SansSerif)
         }
         var checked by rememberSaveable { mutableStateOf(false) }
         Checkbox(checked = checked, onCheckedChange = { checked = !checked })
