@@ -62,10 +62,10 @@ data class NutrientKCal(
 )
 
 fun ApiFood.asDomainObject(): Food {
-    val calories = totalNutrients["ENERC_KCAL"]?.quantity?.toString() ?: "N/A"
-    val carbs = totalNutrients["CHOCDF"]?.quantity?.toString() ?: "N/A"
-    val fats = totalNutrients["FAT"]?.quantity?.toString() ?: "N/A"
-    val protein = totalNutrients["PROCNT"]?.quantity?.toString() ?: "N/A"
+    val calories = totalNutrients["ENERC_KCAL"]?.quantity?.toString() ?: "not found"
+    val carbs = totalNutrients["CHOCDF"]?.quantity?.toString() ?: "not found"
+    val fats = totalNutrients["FAT"]?.quantity?.toString() ?: "not found"
+    val protein = totalNutrients["PROCNT"]?.quantity?.toString() ?: "not found"
     val totalWeight = totalWeight.toString()
 
     // Create and return the Food object

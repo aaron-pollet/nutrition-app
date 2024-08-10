@@ -4,18 +4,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.nutritionapp.NutritionApplication
+import com.example.nutritionapp.data.FoodRepository
 import com.example.nutritionapp.data.FoodSampler
-import com.example.nutritionapp.network.RetrofitClient
-import com.example.nutritionapp.network.asDomainObject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.net.SocketTimeoutException
 
-class FoodViewModel : ViewModel() {
+class FoodViewModel(private val foodRepository: FoodRepository) : ViewModel() {
     private val _uiState = MutableStateFlow(FoodUiState(foods = FoodSampler.getAll()))
     val uiState: StateFlow<FoodUiState> = _uiState.asStateFlow()
 
@@ -52,41 +57,35 @@ class FoodViewModel : ViewModel() {
         _uiState.update { it.copy(newFoodDescription = description) }
     }
 
-    //    private fun getApiFoods() {
-//        val appId = "cd137a78"
-//        val appKey = "99d47aed28a398a38117e0487cbd6813"
-//        val nutritionType = "logging" // or "logging"
-//        val ingredient = "100g chicken"
-//        try {
-//            viewModelScope.launch {
-//                val result = foodService.getNutritionData(appId, appKey, nutritionType, ingredient)
-//                println("foods: $result")
-//            }
-//        } catch (e: Exception) {
-//            // throw an appropriate exception
-//            println("Error: $e")
-//        }
-//        viewModelScope.launch {
-//            val result = foodService.getNutritionData(appId, appKey, nutritionType, ingredient)
-//            println("foods: $result")
-//        }
     private fun getNutrtion() {
         viewModelScope.launch {
             foodApiState = FoodApiState.Loading
             try {
                 val response =
-                    RetrofitClient.foodApiService.getApiNutritionalAnalysis(
+                    foodRepository.getFood(
                         "cd137a78",
                         "99d47aed28a398a38117e0487cbd6813",
                         "logging",
                         "100g chicken",
                     )
-                foodApiState = FoodApiState.Success(response.asDomainObject())
+                foodApiState = FoodApiState.Success(response)
                 println("foods: $response")
+            } catch (e: SocketTimeoutException) {
+                foodApiState = FoodApiState.Error
             } catch (e: IOException) {
                 foodApiState = FoodApiState.Error
-                println("Error: $e")
             }
         }
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory =
+            viewModelFactory {
+                initializer {
+                    val application = this[APPLICATION_KEY] as NutritionApplication
+                    val foodRepository = application.container.foodRepository
+                    FoodViewModel(foodRepository)
+                }
+            }
     }
 }

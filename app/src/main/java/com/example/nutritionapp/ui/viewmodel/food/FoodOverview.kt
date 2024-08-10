@@ -51,7 +51,7 @@ fun FoodOverview(
     addingVisible: Boolean,
     onVisibilityChanged: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    foodViewModel: FoodViewModel = viewModel(),
+    foodViewModel: FoodViewModel = viewModel(factory = FoodViewModel.Factory),
 ) {
     val foodUiState by foodViewModel.uiState.collectAsState()
 
@@ -67,7 +67,7 @@ fun FoodOverview(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column {
-                Text("Amount eaten")
+                Text("Amount consumed")
                 Text("0.0 kcal")
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -97,11 +97,11 @@ fun FoodOverview(
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("0.0/200.0")
-                Text("Proteins")
+                Text("Protein")
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("0.0/200.0")
-                Text("Fats")
+                Text("Fat")
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("0.0/200.0")
@@ -112,21 +112,20 @@ fun FoodOverview(
         Spacer(modifier = Modifier.height(16.dp))
 
         Column(modifier = modifier.fillMaxWidth()) {
-//            MealCard("Breakfast")
-//            Spacer(modifier = Modifier.height(8.dp))
-//            MealCard("Lunch")
-//            Spacer(modifier = Modifier.height(8.dp))
-//            MealCard("Dinner")
-//            Spacer(modifier = Modifier.height(8.dp))
-//            MealCard("Snack")
-//            Spacer(modifier = Modifier.height(8.dp))
+            MealCard("Breakfast")
+            Spacer(modifier = Modifier.height(8.dp))
+            MealCard("Lunch")
+            Spacer(modifier = Modifier.height(8.dp))
+            MealCard("Dinner")
+            Spacer(modifier = Modifier.height(8.dp))
+            MealCard("Snack")
+            Spacer(modifier = Modifier.height(8.dp))
             Box {
                 val lazyListState = rememberLazyListState()
                 LazyColumn(state = lazyListState) {
-                    val foodApiState = foodViewModel.foodApiState
-                    when (foodApiState) {
-                        is FoodApiState.Loading -> item { Text("Loading...") }
-                        is FoodApiState.Error -> item { Text("Couldn't load...") }
+                    when (val foodApiState = foodViewModel.foodApiState) {
+                        is FoodApiState.Loading -> item { Text("Loading food from API...") }
+                        is FoodApiState.Error -> item { Text("Error loading food from API...") }
                         is FoodApiState.Success ->
                             item {
                                 FoodItem(
@@ -150,7 +149,6 @@ fun FoodOverview(
 //                }
         }
     }
-}
 
 //    if (addingVisible) {
 //        CreateFood(
@@ -164,11 +162,12 @@ fun FoodOverview(
 //            },
 //            onDismissRequest = {
 //                // TODO clear viewmodel text
+//
 //                onVisibilityChanged(false)
 //            },
 //        )
 //    }
-// }
+}
 
 @Composable
 fun MealCard(name: String) {
