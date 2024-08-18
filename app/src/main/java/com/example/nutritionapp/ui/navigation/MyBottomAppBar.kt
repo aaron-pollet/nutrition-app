@@ -3,10 +3,10 @@ package com.example.nutritionapp.ui.navigation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.BottomAppBar
@@ -15,7 +15,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.nutritionapp.R
 
 @Composable
 fun MyBottomAppBar(
@@ -34,21 +38,23 @@ fun MyBottomAppBar(
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             IconButton(onClick = goHome) {
-                Icon(Icons.Filled.Home, contentDescription = "navigate to home screen")
+                Icon(Icons.Filled.Home, contentDescription = "navigate to home screen", modifier = Modifier.size(24.dp))
             }
             IconButton(onClick = goToExercise) {
-                Icon(Icons.Filled.Build, contentDescription = "navigate to exercise screen")
+                val painter : Painter = painterResource(id = R.drawable.barbell_12635735)
+                Icon(painter, contentDescription = "navigate to exercise screen",modifier = Modifier.size(24.dp))
             }
             IconButton(onClick = goToAdd) {
-                Icon(Icons.Filled.AddCircle, contentDescription = "navigate to add screen")
+                Icon(Icons.Filled.AddCircle, contentDescription = "navigate to add screen", modifier = Modifier.size(24.dp))
             }
             IconButton(onClick = goToWeight) {
-                Icon(Icons.Filled.AccountBox, contentDescription = "navigate to weight screen")
+                val painter: Painter = painterResource(id = R.drawable.weightscale_11798705)
+                Icon(painter, contentDescription = "navigate to weight screen", modifier = Modifier.size(24.dp))
             }
             IconButton(onClick = goToProfile) {
                 Icon(
                     Icons.Filled.Person,
-                    contentDescription = "navigate to profile screen",
+                    contentDescription = "navigate to profile screen", modifier = Modifier.size(24.dp),
                 )
             }
         }

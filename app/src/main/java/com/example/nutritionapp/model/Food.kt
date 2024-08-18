@@ -10,4 +10,12 @@ data class Food(
     val carbs: String,
     val fats: String,
     val protein: String,
+    val mealType: MealType,
 )
+
+enum class MealType {
+    BREAKFAST,
+    LUNCH,
+    DINNER,
+    SNACK,
+}

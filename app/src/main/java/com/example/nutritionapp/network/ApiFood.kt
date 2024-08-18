@@ -1,6 +1,7 @@
 package com.example.nutritionapp.network
 
 import com.example.nutritionapp.model.Food
+import com.example.nutritionapp.model.MealType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -61,14 +62,13 @@ data class NutrientKCal(
     val unit: String,
 )
 
-fun ApiFood.asDomainObject(): Food {
+fun ApiFood.asDomainObject(mealType: MealType): Food {
     val calories = totalNutrients["ENERC_KCAL"]?.quantity?.toString() ?: "not found"
     val carbs = totalNutrients["CHOCDF"]?.quantity?.toString() ?: "not found"
     val fats = totalNutrients["FAT"]?.quantity?.toString() ?: "not found"
     val protein = totalNutrients["PROCNT"]?.quantity?.toString() ?: "not found"
     val totalWeight = totalWeight.toString()
 
-    // Create and return the Food object
     return Food(
         desc = ingredients.joinToString { it.text },
         calories = calories,
@@ -76,5 +76,6 @@ fun ApiFood.asDomainObject(): Food {
         carbs = carbs,
         fats = fats,
         protein = protein,
+        mealType = mealType,
     )
 }

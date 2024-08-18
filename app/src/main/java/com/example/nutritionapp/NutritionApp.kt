@@ -1,12 +1,10 @@
 package com.example.nutritionapp
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -19,8 +17,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -42,7 +38,6 @@ enum class Destinations {
 }
 
 @SuppressLint("UnrememberedMutableState")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FoodApp(navController: NavHostController = rememberNavController()) {
     var addingVisible by rememberSaveable { mutableStateOf(false) }
@@ -86,11 +81,11 @@ fun FoodApp(navController: NavHostController = rememberNavController()) {
         },
         floatingActionButton = {
             when (currentBackStackEntry?.destination?.route) {
-                Destinations.Start.name -> {
-                    FloatingActionButton(onClick = { addingVisible = true }) {
-                        Icon(Icons.Default.Add, contentDescription = "Add")
-                    }
-                }
+//                Destinations.Start.name -> {
+//                    FloatingActionButton(onClick = { addingVisible = true }) {
+//                        Icon(Icons.Default.Add, contentDescription = "Add")
+//                    }
+//                }
                 Destinations.Exercise.name -> {
                     FloatingActionButton(onClick = { addingVisible = true }) {
                         Icon(Icons.Default.Add, contentDescription = "Add exercise")
@@ -111,7 +106,7 @@ fun FoodApp(navController: NavHostController = rememberNavController()) {
             modifier = Modifier.padding(innerPadding),
         ) {
             composable(route = Destinations.Start.name) {
-                FoodOverview(addingVisible = addingVisible, { visible -> addingVisible = visible })
+                FoodOverview()
             }
             composable(route = Destinations.Exercise.name) {
                 Text("Exercise screen")
@@ -133,17 +128,10 @@ fun FoodApp(navController: NavHostController = rememberNavController()) {
 @Composable
 fun FoodAppPreview() {
     NutritionAppTheme {
-        val image = painterResource(R.drawable.backgroundimage)
         // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),
         ) {
-            Image(
-                painter = image,
-                contentDescription = null,
-                contentScale = ContentScale.FillWidth,
-                alpha = 0.4F,
-            )
             FoodApp()
         }
     }

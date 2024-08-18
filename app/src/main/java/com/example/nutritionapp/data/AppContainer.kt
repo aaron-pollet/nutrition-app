@@ -1,6 +1,11 @@
 package com.example.nutritionapp.data
 
-import com.example.nutritionapp.data.DefaultAppContainer.RetrofitClient.retrofitService
+import android.content.Context
+import androidx.room.Room
+import com.example.nutritionapp.data.persistence.CachingFoodRepository
+import com.example.nutritionapp.data.persistence.FoodDao
+import com.example.nutritionapp.data.persistence.FoodDatabase
+import com.example.nutritionapp.data.persistence.FoodRepository
 import com.example.nutritionapp.network.FoodApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -9,9 +14,12 @@ import retrofit2.Retrofit
 
 interface AppContainer {
     val foodRepository: FoodRepository
+    val foodApiService: FoodApiService
 }
 
-class DefaultAppContainer() : AppContainer {
+class DefaultAppContainer(
+    private val applicationContext: Context,
+) : AppContainer {
     object RetrofitClient {
         private const val BASE_URL = "https://api.edamam.com"
         private val json =
@@ -30,7 +38,23 @@ class DefaultAppContainer() : AppContainer {
         }
     }
 
+    private val foodDb: FoodDatabase by lazy {
+        Room.databaseBuilder(applicationContext, FoodDatabase::class.java, "food-database")
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    private val foodDao: FoodDao by lazy {
+        foodDb.foodDao()
+    }
+
     override val foodRepository: FoodRepository by lazy {
-        ApiFoodRepository(retrofitService)
+        CachingFoodRepository(
+            foodDao = foodDao,
+            foodApiService = RetrofitClient.retrofitService,
+        )
+    }
+    override val foodApiService: FoodApiService by lazy {
+        RetrofitClient.retrofitService
     }
 }

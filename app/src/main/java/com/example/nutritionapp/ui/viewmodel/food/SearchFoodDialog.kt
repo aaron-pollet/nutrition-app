@@ -1,6 +1,8 @@
 package drawable
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,6 +13,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -20,12 +23,10 @@ import androidx.compose.ui.window.Dialog
 import com.example.nutritionapp.R
 
 @Composable
-fun CreateFood(
-    foodName: String,
+fun SearchFoodDialog(
     foodDescription: String,
-    onFoodChangeName: (String) -> Unit,
     onFoodChangeDescription: (String) -> Unit,
-    onSave: () -> Unit,
+    onSearch: () -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -38,19 +39,30 @@ fun CreateFood(
                         .padding(24.dp)
                         .fillMaxWidth(),
             ) {
-                Text(stringResource(R.string.create_food_add), style = MaterialTheme.typography.headlineSmall)
+                Text(stringResource(R.string.search_food_add), style = MaterialTheme.typography.headlineSmall)
                 Spacer(modifier = modifier.padding(16.dp))
-                OutlinedTextField(label = { Text("Name:") }, value = foodName, onValueChange = onFoodChangeName)
-                OutlinedTextField(label = { Text("Description:") }, value = foodDescription, onValueChange = onFoodChangeDescription)
+                OutlinedTextField(
+                    label = {
+                        Text("Enter food description:")
+                    },
+                    value = foodDescription,
+                    onValueChange = onFoodChangeDescription,
+                    modifier = Modifier.fillMaxWidth(),
+                )
                 Spacer(modifier = Modifier.padding(8.dp))
-                TextButton(onClick = onSave, Modifier.align(Alignment.End)) { Text("save") }
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    TextButton(onClick = onDismissRequest) {
+                        Text("Cancel")
+                    }
+
+                    TextButton(onClick = onSearch) {
+                        Text("Search")
+                    }
+                }
             }
         }
     }
 }
-
-// @Preview
-// @Composable
-// fun CreateFoodPreview() {
-//    CreateFood("pizza", "delicious", {}, {}, {}, {})
-// }

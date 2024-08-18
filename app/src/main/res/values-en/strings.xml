@@ -6,5 +6,6 @@
     <string name="app_add_new_item_title">Add a new item</string>
     <string name="app_weight_tracking_title">Weight tracking</string>
     <string name="app_profile_title">Profile</string>
-    <string name="create_food_add">Add a new food entry</string>
+    <string name="search_food_add">Add a new food entry</string>
+    <string name="review_food">Review food entry</string>
 </resources>
