@@ -92,35 +92,30 @@ class FoodAppNavigationTests {
             .onNodeWithContentDescription("navigate to home screen")
             .performClick()
 
-        // Verify "Protein" text is displayed
         composeTestRule
-            .onNodeWithText("Protein") // Replace with actual text present in the Food Overview screen
+            .onNodeWithText("Protein")
             .assertIsDisplayed()
     }
 
     @Test
     fun foodOverviewScreen_displaysFat() {
-        // Navigate to Food Overview screen
         composeTestRule
             .onNodeWithContentDescription("navigate to home screen")
             .performClick()
 
-        // Verify "Fat" text is displayed
         composeTestRule
-            .onNodeWithText("Fat") // Replace with actual text present in the Food Overview screen
+            .onNodeWithText("Fat")
             .assertIsDisplayed()
     }
 
     @Test
     fun foodOverviewScreen_displaysCarbs() {
-        // Navigate to Food Overview screen
         composeTestRule
             .onNodeWithContentDescription("navigate to home screen")
             .performClick()
 
-        // Verify "Carbs" text is displayed
         composeTestRule
-            .onNodeWithText("Carbs") // Replace with actual text present in the Food Overview screen
+            .onNodeWithText("Carbs")
             .assertIsDisplayed()
     }
 }

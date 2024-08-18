@@ -79,11 +79,6 @@ fun FoodApp(navController: NavHostController = rememberNavController()) {
         },
         floatingActionButton = {
             when (currentBackStackEntry?.destination?.route) {
-//                Destinations.Start.name -> {
-//                    FloatingActionButton(onClick = { addingVisible = true }) {
-//                        Icon(Icons.Default.Add, contentDescription = "Add")
-//                    }
-//                }
                 Destinations.Exercise.name -> {
                     FloatingActionButton(onClick = { addingVisible = true }) {
                         Icon(Icons.Default.Add, contentDescription = "Add exercise")
