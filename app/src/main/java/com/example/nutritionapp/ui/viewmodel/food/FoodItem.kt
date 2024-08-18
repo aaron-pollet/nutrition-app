@@ -12,11 +12,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun FoodItem(
     desc: String,
-    calories: String,
-//    grams: String,
-//    carbs: String,
-//    fats: String,
-//    protein: String,
+    calories: Double,
 ) {
     Row(
         modifier =
@@ -27,9 +23,5 @@ fun FoodItem(
         Text(desc)
         Spacer(modifier = Modifier.weight(0.5f))
         Text("$calories kcal")
-        // Text("Grams: $grams g")
-//        Text("Carbs: $carbs g")
-//        Text("Fats: $fats g")
-//        Text("Protein: $protein g")
     }
 }

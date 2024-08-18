@@ -51,7 +51,6 @@ fun FoodApp(navController: NavHostController = rememberNavController()) {
             inclusive = false,
         )
     }
-    val goToProfile = { navController.navigate(NutritionAppOverviewScreen.Profile.name) }
     val goToWeight = { navController.navigate(NutritionAppOverviewScreen.Weight.name) }
     val goToExercise = { navController.navigate(NutritionAppOverviewScreen.Exercise.name) }
     val goToAdd = { navController.navigate(NutritionAppOverviewScreen.Add.name) }
@@ -76,7 +75,6 @@ fun FoodApp(navController: NavHostController = rememberNavController()) {
                 goToExercise,
                 goToAdd,
                 goToWeight,
-                goToProfile,
             )
         },
         floatingActionButton = {
@@ -128,7 +126,6 @@ fun FoodApp(navController: NavHostController = rememberNavController()) {
 @Composable
 fun FoodAppPreview() {
     NutritionAppTheme {
-        // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),
         ) {

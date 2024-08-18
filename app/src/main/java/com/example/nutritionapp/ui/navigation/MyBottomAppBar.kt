@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.BottomAppBar
@@ -25,7 +23,6 @@ import com.example.nutritionapp.R
 fun MyBottomAppBar(
     goHome: () -> Unit,
     goToExercise: () -> Unit,
-    goToAdd: () -> Unit,
     goToWeight: () -> Unit,
     goToProfile: () -> Unit,
 ) {
@@ -41,11 +38,8 @@ fun MyBottomAppBar(
                 Icon(Icons.Filled.Home, contentDescription = "navigate to home screen", modifier = Modifier.size(24.dp))
             }
             IconButton(onClick = goToExercise) {
-                val painter : Painter = painterResource(id = R.drawable.barbell_12635735)
-                Icon(painter, contentDescription = "navigate to exercise screen",modifier = Modifier.size(24.dp))
-            }
-            IconButton(onClick = goToAdd) {
-                Icon(Icons.Filled.AddCircle, contentDescription = "navigate to add screen", modifier = Modifier.size(24.dp))
+                val painter: Painter = painterResource(id = R.drawable.barbell_12635735)
+                Icon(painter, contentDescription = "navigate to exercise screen", modifier = Modifier.size(24.dp))
             }
             IconButton(onClick = goToWeight) {
                 val painter: Painter = painterResource(id = R.drawable.weightscale_11798705)
@@ -54,7 +48,8 @@ fun MyBottomAppBar(
             IconButton(onClick = goToProfile) {
                 Icon(
                     Icons.Filled.Person,
-                    contentDescription = "navigate to profile screen", modifier = Modifier.size(24.dp),
+                    contentDescription = "navigate to profile screen",
+                    modifier = Modifier.size(24.dp),
                 )
             }
         }
@@ -64,5 +59,5 @@ fun MyBottomAppBar(
 @Preview
 @Composable
 private fun BottomAppBarPreview() {
-    MyBottomAppBar(goHome = {}, goToExercise = {}, goToAdd = {}, goToWeight = {}, goToProfile = {})
+    MyBottomAppBar(goHome = {}, goToExercise = {}, goToWeight = {}, goToProfile = {})
 }

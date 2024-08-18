@@ -38,10 +38,6 @@ class FoodViewModel(
     private val _selectedMealType = MutableStateFlow(MealType.BREAKFAST)
     val selectedMealType: StateFlow<MealType> = _selectedMealType.asStateFlow()
 
-    fun setMealType(mealType: MealType) {
-        _selectedMealType.value = mealType
-    }
-
     var foodApiState: FoodApiState by mutableStateOf(FoodApiState.Loading)
         private set
 
@@ -68,12 +64,12 @@ class FoodViewModel(
                 _uiState.update {
                         currentState ->
                     currentState.copy(
-                        newFoodDescription = food.desc,
-                        newFoodCalories = food.calories,
-                        newFoodGrams = food.grams,
-                        newFoodCarbs = food.carbs,
-                        newFoodFats = food.fats,
-                        newFoodProtein = food.protein,
+                        newFoodDescription = food.desc.toString(),
+                        newFoodCalories = food.calories.toString(),
+                        newFoodGrams = food.grams.toString(),
+                        newFoodCarbs = food.carbs.toString(),
+                        newFoodFats = food.fats.toString(),
+                        newFoodProtein = food.protein.toString(),
                     )
                 }
                 Log.d("API reponse successfully", response.toString())

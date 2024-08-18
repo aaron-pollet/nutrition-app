@@ -15,7 +15,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -28,8 +27,6 @@ fun MealCard(
     onAddMeal: () -> Unit,
     uiListState: List<Food>,
 ) {
-//    val expanded by rememberSaveable { mutableStateOf(false) }
-
     ElevatedCard(
         modifier =
             Modifier
@@ -69,10 +66,6 @@ fun MealCard(
                         FoodItem(
                             desc = foodItem.desc,
                             calories = foodItem.calories,
-                            // grams = foodItem.grams,
-//                            carbs = foodItem.carbs,
-//                            fats = foodItem.fats,
-//                            protein = foodItem.protein,
                         )
                     }
                 }

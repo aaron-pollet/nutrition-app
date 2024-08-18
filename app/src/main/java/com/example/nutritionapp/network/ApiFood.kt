@@ -71,11 +71,11 @@ fun ApiFood.asDomainObject(mealType: MealType): Food {
 
     return Food(
         desc = ingredients.joinToString { it.text },
-        calories = calories,
-        grams = totalWeight,
-        carbs = carbs,
-        fats = fats,
-        protein = protein,
+        calories = calories.toDouble(),
+        grams = totalWeight.toDouble(),
+        carbs = carbs.toDouble(),
+        fats = fats.toDouble(),
+        protein = protein.toDouble(),
         mealType = mealType,
     )
 }

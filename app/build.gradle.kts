@@ -60,6 +60,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended:1.6.8")
+    implementation("androidx.test:monitor:1.7.2")
+    implementation("androidx.test.ext:junit-ktx:1.2.1")
     androidTestImplementation("androidx.navigation:navigation-testing:2.7.7")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
@@ -78,13 +80,13 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
     // room
-    val room_version = "2.5.0"
-    implementation("androidx.room:room-runtime:$room_version")
+    val roomVersion = "2.5.0"
+    implementation("androidx.room:room-runtime:$roomVersion")
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-ktx:$roomVersion")
     // To use Kotlin Symbol Processing (KSP)
-    ksp("androidx.room:room-compiler:$room_version")
+    ksp("androidx.room:room-compiler:$roomVersion")
     // optional - Test helpers
-    testImplementation("androidx.room:room-testing:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+    testImplementation("androidx.room:room-testing:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
 }

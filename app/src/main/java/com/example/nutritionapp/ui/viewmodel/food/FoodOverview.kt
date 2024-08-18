@@ -48,18 +48,12 @@ fun FoodOverview(
     var fats by rememberSaveable { mutableStateOf("") }
     var protein by rememberSaveable { mutableStateOf("") }
 
-    val breakfastFoods by foodViewModel.getFoodByMealType(MealType.BREAKFAST).collectAsState(emptyList())
-    val lunchFoods by foodViewModel.getFoodByMealType(MealType.LUNCH).collectAsState(emptyList())
-    val dinnerFoods by foodViewModel.getFoodByMealType(MealType.DINNER).collectAsState(emptyList())
-    val snackFoods by foodViewModel.getFoodByMealType(MealType.SNACK).collectAsState(emptyList())
-
     Column(
         modifier =
             modifier
                 .fillMaxSize()
                 .padding(16.dp),
     ) {
-        // Original CalorieSummary
         Column(
             modifier =
                 Modifier
@@ -83,13 +77,12 @@ fun FoodOverview(
 
                 Box(
                     modifier =
-                        Modifier
-                            .size(100.dp)
+                        Modifier.size(100.dp)
                             .background(Color.LightGray, CircleShape),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
-                        text = "Remaining calories",
+                        text = "Remaining calories: 0 kcal",
                         Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                     )
@@ -120,19 +113,10 @@ fun FoodOverview(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Original FoodDiary
         Column(modifier = Modifier.fillMaxWidth()) {
-            MealCard(MealType.BREAKFAST, onAddMeal = {
+            MealCard(MealType.SNACK, onAddMeal = {
                 showSearchFoodDialog = true
-            }, uiListState = breakfastFoods)
-            Spacer(modifier = Modifier.height(8.dp))
-            MealCard(MealType.LUNCH, onAddMeal = {
-                showSearchFoodDialog = true
-            }, uiListState = lunchFoods)
-            Spacer(modifier = Modifier.height(8.dp))
-            MealCard(MealType.DINNER, onAddMeal = { showSearchFoodDialog = true }, uiListState = dinnerFoods)
-            Spacer(modifier = Modifier.height(8.dp))
-            MealCard(MealType.SNACK, onAddMeal = { showSearchFoodDialog = true }, uiListState = snackFoods)
+            }, uiListState = uiListState)
             Spacer(modifier = Modifier.height(8.dp))
 
             if (showSearchFoodDialog) {
@@ -142,11 +126,11 @@ fun FoodOverview(
                     onSearch = {
                         foodViewModel.fetchFoodDetails(foodDescription) {
                                 foodItem ->
-                            calories = foodItem.calories
-                            grams = foodItem.grams
-                            carbs = foodItem.carbs
-                            fats = foodItem.fats
-                            protein = foodItem.protein
+                            calories = foodItem.calories.toString()
+                            grams = foodItem.grams.toString()
+                            carbs = foodItem.carbs.toString()
+                            fats = foodItem.fats.toString()
+                            protein = foodItem.protein.toString()
                         }
 
                         showFoodReviewDialog = true

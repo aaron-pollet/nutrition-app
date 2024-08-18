@@ -18,11 +18,11 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class FoodSamplerAppTest {
+class FoodAppNavigationTests {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    lateinit var navController: TestNavHostController
+    private lateinit var navController: TestNavHostController
 
     @Before
     fun initializeApp() {
@@ -54,9 +54,6 @@ class FoodSamplerAppTest {
         composeTestRule
             .onNodeWithContentDescription("navigate to profile screen")
             .performClick()
-//        composeTestRule
-//            .onNodeWithText(getResourceString(FoodOverviewScreen.Profile.title))
-//            .assertIsDisplayed()
         assertEquals(NutritionAppOverviewScreen.Profile.name, navController.currentBackStackEntry?.destination?.route)
     }
 
@@ -65,5 +62,65 @@ class FoodSamplerAppTest {
     ): String {
         val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
         return context.resources.getString(key)
+    }
+
+    @Test
+    fun foodOverviewScreen_displaysAmountConsumed() {
+        composeTestRule
+            .onNodeWithContentDescription("navigate to home screen")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithText("Amount consumed")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun foodOverviewScreen_displaysRemainingCalories() {
+        composeTestRule
+            .onNodeWithContentDescription("navigate to home screen")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithText("Remaining calories: 0 kcal")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun foodOverviewScreen_displaysProtein() {
+        composeTestRule
+            .onNodeWithContentDescription("navigate to home screen")
+            .performClick()
+
+        // Verify "Protein" text is displayed
+        composeTestRule
+            .onNodeWithText("Protein") // Replace with actual text present in the Food Overview screen
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun foodOverviewScreen_displaysFat() {
+        // Navigate to Food Overview screen
+        composeTestRule
+            .onNodeWithContentDescription("navigate to home screen")
+            .performClick()
+
+        // Verify "Fat" text is displayed
+        composeTestRule
+            .onNodeWithText("Fat") // Replace with actual text present in the Food Overview screen
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun foodOverviewScreen_displaysCarbs() {
+        // Navigate to Food Overview screen
+        composeTestRule
+            .onNodeWithContentDescription("navigate to home screen")
+            .performClick()
+
+        // Verify "Carbs" text is displayed
+        composeTestRule
+            .onNodeWithText("Carbs") // Replace with actual text present in the Food Overview screen
+            .assertIsDisplayed()
     }
 }

@@ -5,11 +5,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Food(
     val desc: String,
-    val calories: String,
-    val grams: String,
-    val carbs: String,
-    val fats: String,
-    val protein: String,
+    val calories: Double,
+    val grams: Double,
+    val carbs: Double,
+    val fats: Double,
+    val protein: Double,
     val mealType: MealType,
 )
 

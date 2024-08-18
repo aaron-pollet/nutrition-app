@@ -21,22 +21,22 @@ class DbFood(
 fun Food.asDbFood() =
     DbFood(
         desc = desc,
-        calories = calories,
-        grams = grams,
-        carbs = carbs,
-        fats = fats,
-        protein = protein,
+        calories = calories.toString(),
+        grams = grams.toString(),
+        carbs = carbs.toString(),
+        fats = fats.toString(),
+        protein = protein.toString(),
         mealType = mealType,
     )
 
 fun DbFood.asDomainFood() =
     Food(
         desc = desc,
-        calories = calories,
-        grams = grams,
-        carbs = carbs,
-        fats = fats,
-        protein = protein,
+        calories = calories.toDouble(),
+        grams = grams.toDouble(),
+        carbs = carbs.toDouble(),
+        fats = fats.toDouble(),
+        protein = protein.toDouble(),
         mealType = mealType,
     )
 
