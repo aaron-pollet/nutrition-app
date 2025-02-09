@@ -25,6 +25,7 @@ fun MyBottomAppBar(
     goToExercise: () -> Unit,
     goToWeight: () -> Unit,
     goToProfile: () -> Unit,
+    goToFood: () -> Unit,
 ) {
     BottomAppBar(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -34,30 +35,78 @@ fun MyBottomAppBar(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
-            IconButton(onClick = goHome) {
-                Icon(Icons.Filled.Home, contentDescription = "navigate to home screen", modifier = Modifier.size(24.dp))
-            }
-            IconButton(onClick = goToExercise) {
-                val painter: Painter = painterResource(id = R.drawable.barbell_12635735)
-                Icon(painter, contentDescription = "navigate to exercise screen", modifier = Modifier.size(24.dp))
-            }
-            IconButton(onClick = goToWeight) {
-                val painter: Painter = painterResource(id = R.drawable.weightscale_11798705)
-                Icon(painter, contentDescription = "navigate to weight screen", modifier = Modifier.size(24.dp))
-            }
-            IconButton(onClick = goToProfile) {
-                Icon(
-                    Icons.Filled.Person,
-                    contentDescription = "navigate to profile screen",
-                    modifier = Modifier.size(24.dp),
-                )
-            }
+            HomeButton(onClick = goHome)
+            ExerciseButton(onClick = goToExercise)
+            FoodButton(onClick = goToFood)
+            WeightButton(onClick = goToWeight)
+            ProfileButton(onClick = goToProfile)
         }
+    }
+}
+
+@Composable
+private fun HomeButton(onClick: () -> Unit) {
+    IconButton(onClick = onClick) {
+        Icon(
+            Icons.Filled.Home,
+            contentDescription = "navigate to home screen",
+            modifier = Modifier.size(24.dp)
+        )
+    }
+}
+
+@Composable
+private fun ExerciseButton(onClick: () -> Unit) {
+    IconButton(onClick = onClick) {
+        Icon(
+            painterResource(id = R.drawable.barbell_12635735),
+            contentDescription = "navigate to exercise screen",
+            modifier = Modifier.size(24.dp)
+        )
+    }
+}
+
+@Composable
+private fun FoodButton(onClick: () -> Unit) {
+    IconButton(onClick = onClick) {
+        Icon(
+            painterResource(id = R.drawable.pear_icon),
+            contentDescription = "navigate to food screen",
+            modifier = Modifier.size(24.dp)
+        )
+    }
+}
+
+@Composable
+private fun WeightButton(onClick: () -> Unit) {
+    IconButton(onClick = onClick) {
+        Icon(
+            painterResource(id = R.drawable.weightscale_11798705),
+            contentDescription = "navigate to weight screen",
+            modifier = Modifier.size(24.dp)
+        )
+    }
+}
+
+@Composable
+private fun ProfileButton(onClick: () -> Unit) {
+    IconButton(onClick = onClick) {
+        Icon(
+            Icons.Filled.Person,
+            contentDescription = "navigate to profile screen",
+            modifier = Modifier.size(24.dp)
+        )
     }
 }
 
 @Preview
 @Composable
 private fun BottomAppBarPreview() {
-    MyBottomAppBar(goHome = {}, goToExercise = {}, goToWeight = {}, goToProfile = {})
+    MyBottomAppBar(
+        goHome = {},
+        goToExercise = {},
+        goToWeight = {},
+        goToProfile = {},
+        goToFood = {}
+    )
 }
